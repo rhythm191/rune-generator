@@ -1,40 +1,64 @@
 <template>
   <div class="container">
     <div>
-      <logo />
-      <h1 class="title">
-        rune-generator
-      </h1>
+      <h1 class="title">ルーン文字ジェネレータ</h1>
+
       <h2 class="subtitle">
-        Generate rule language sentence
+        入力をルーン文字に変換します。
       </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
+
+      <div class="preview">
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 600 600"
+          width="300"
+          height="300"
         >
-          GitHub
-        </a>
+          <text
+            transform="translate(103.29 347.281)"
+            fill="#333"
+            font-size="64"
+            font-family="Rune sans"
+            letter-spacing="-0.002em"
+          >
+            <tspan x="0" y="26">{{ text }}</tspan>
+          </text>
+        </svg>
       </div>
+
+      <div class="form">
+        <input v-model="text" type="text" />
+      </div>
+
+      <button @click="create">ツイートする</button>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      text: ''
+    }
+  },
+  methods: {
+    create() {
+      window.console.log('mock create')
+    }
   }
 }
 </script>
 
 <style>
+@font-face {
+  font-family: 'Rune sans';
+  src: url('/RuneAssignMN_SansHumanicLike.otf');
+  font-weight: normal;
+}
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -60,6 +84,15 @@ export default {
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+
+.preview {
+  font-family: 'Rune sans';
+
+  svg {
+    width: 100%;
+    max-height: 200px;
+  }
 }
 
 .links {
