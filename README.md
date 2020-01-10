@@ -27,4 +27,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ``` bash
 # firestore rule deploy
 $ firebase deploy --only firestore:rules
+
+# firestore indexes deploy
+$ firebase deploy --only firestore:indexes
 ```
