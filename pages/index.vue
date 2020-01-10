@@ -17,13 +17,23 @@
           width="600"
           height="300"
         >
+          <defs>
+            <style type="text/css">
+              @font-face {
+                font-family: 'Rune sans';
+                src: url('data:application/x-font-otf;charset=utf-8;base64,{{ runeFontBase64 }}')
+                  format('opentype');
+                font-weight: normal;
+              }
+            </style>
+          </defs>
           <rect
             x="0"
             y="0"
             width="600"
             height="300"
             stroke="#333"
-            style="fill: none;"
+            style="fill: #fff;"
           />
           <rect
             x="30"
@@ -31,8 +41,9 @@
             width="540"
             height="240"
             stroke="#333"
-            style="fill: none;"
+            style="fill: #fff;"
           />
+
           <text
             transform="translate(80 100)"
             fill="#333"
@@ -55,7 +66,11 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+// import axios from 'axios'
+
+import * as firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/firebase-storage'
 
 // firebaseのconfig情報をペースト
 const firebaseConfig = {
@@ -77,6 +92,7 @@ const svg2imageData = (svgElement, successCallback, errorCallback) => {
   canvas.width = 1200
   canvas.height = 630
   const ctx = canvas.getContext('2d')
+
   const image = new Image()
   image.onload = () => {
     ctx.drawImage(image, 0, 0, 1200, 630)
@@ -97,11 +113,18 @@ export default {
       text: ''
     }
   },
+  async asyncData({ params }) {
+    const otfRef = db.collection('fonts').doc('rune-otf')
+    const fontValue = await otfRef.get()
+    return { runeFontBase64: fontValue.data().value }
+  },
   methods: {
     create() {
       svg2imageData(this.$refs.svgPreview, async (data) => {
         const sRef = firebase.storage().ref()
-        const fileRef = sRef.child(`${this.uuid}.png`)
+        const newMessageRef = db.collection('messages').doc()
+
+        const fileRef = sRef.child(`images/${newMessageRef.id}.png`)
 
         // Firebase Cloud Storageにアップロード
         await fileRef.putString(data, 'data_url')
@@ -109,8 +132,7 @@ export default {
         window.console.log(url)
 
         // Firestoreに保存しておく
-        const card = db.collection('cards').doc(this.uuid)
-        await card.set({
+        await newMessageRef.set({
           url,
           message: this.text
         })
@@ -121,11 +143,12 @@ export default {
 </script>
 
 <style>
-@font-face {
+/* @font-face {
   font-family: 'Rune sans';
-  src: url('/RuneAssignMN_SansHumanicLike.otf');
+  src: url('/RuneAssignMN_SansHumanicLike.otf')
+    format('opentype');
   font-weight: normal;
-}
+} */
 
 .container {
   margin: 0 auto;
@@ -154,9 +177,9 @@ export default {
   padding-bottom: 15px;
 }
 
-.preview {
+/* .preview {
   font-family: 'Rune sans';
-}
+} */
 .preview svg {
   width: 100%;
   max-height: 200px;
