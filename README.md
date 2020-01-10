@@ -20,3 +20,11 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+## deploy
+
+``` bash
+# firestore rule deploy
+$ firebase deploy --only firestore:rules
+```
