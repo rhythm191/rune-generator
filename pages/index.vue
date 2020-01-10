@@ -98,7 +98,7 @@ export default {
     }
   },
   methods: {
-    async create() {
+    create() {
       svg2imageData(this.$refs.svgPreview, async (data) => {
         const sRef = firebase.storage().ref()
         const fileRef = sRef.child(`${this.uuid}.png`)
@@ -156,11 +156,10 @@ export default {
 
 .preview {
   font-family: 'Rune sans';
-
-  svg {
-    width: 100%;
-    max-height: 200px;
-  }
+}
+.preview svg {
+  width: 100%;
+  max-height: 200px;
 }
 
 .links {

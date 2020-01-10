@@ -30,4 +30,7 @@ $ firebase deploy --only firestore:rules
 
 # firestore indexes deploy
 $ firebase deploy --only firestore:indexes
+
+# storage indexes deploy
+$ firebase deploy --only storage:rules
 ```
