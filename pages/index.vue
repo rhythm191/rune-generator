@@ -9,119 +9,22 @@
         </h2>
       </header>
 
-      <div class="preview">
-        <SvgCanvas
-          ref="svgCanvas"
-          :text="text"
-          :runeFontBase64="runeFontBase64"
-        ></SvgCanvas>
-      </div>
-
-      <textarea v-model="text" class="input-text" rows="4" />
-
-      <button @click="create" class="tweet">ツイートする</button>
+      <RuneEditor />
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
-
-import * as firebase from 'firebase/app'
-import SvgCanvas from '~/components/SvgCanvas'
-
-import 'firebase/firestore'
-import 'firebase/firebase-storage'
-
-// firebaseのconfig情報をペースト
-const firebaseConfig = {
-  apiKey: 'AIzaSyBowQPLl_2txOUmJfTd9ek9usvhG2Z59R0',
-  authDomain: 'rune-generator.firebaseapp.com',
-  databaseURL: 'https://rune-generator.firebaseio.com',
-  projectId: 'rune-generator',
-  storageBucket: 'rune-generator.appspot.com',
-  messagingSenderId: '563458965490',
-  appId: '1:563458965490:web:8bbe001ba88d315966b56b',
-  measurementId: 'G-B4KFEMW3NR'
-}
-firebase.initializeApp(firebaseConfig)
-const db = firebase.firestore()
-
-// svgをpngに変換
-const svg2imageData = (svgElement, successCallback, errorCallback) => {
-  const canvas = document.createElement('canvas')
-  canvas.width = 1200
-  canvas.height = 630
-  const ctx = canvas.getContext('2d')
-
-  const image = new Image()
-  image.onload = () => {
-    ctx.drawImage(image, 0, 0, 1200, 630)
-    successCallback(canvas.toDataURL())
-  }
-  image.onerror = (e) => {
-    errorCallback(e)
-  }
-  const svgData = new XMLSerializer().serializeToString(svgElement)
-  image.src =
-    'data:image/svg+xml;charset=utf-8;base64,' +
-    btoa(unescape(encodeURIComponent(svgData)))
-}
+import RuneEditor from '~/components/RuneEditor'
 
 export default {
   components: {
-    SvgCanvas
-  },
-  data() {
-    return {
-      text: 'Hello world'
-    }
-  },
-  computed: {
-    texts() {
-      return this.text.split(/\r\n|\n/)
-    },
-    boxHeight() {
-      return 155 + (this.texts.length - 1) * 75
-    }
-  },
-  async asyncData({ params }) {
-    const otfRef = db.collection('fonts').doc('rune-otf')
-    const fontValue = await otfRef.get()
-    return { runeFontBase64: fontValue.data().value }
-  },
-  methods: {
-    create() {
-      svg2imageData(this.$refs.svgCanvas.$refs.svg, async (data) => {
-        const sRef = firebase.storage().ref()
-        const newMessageRef = db.collection('messages').doc()
-
-        const fileRef = sRef.child(`images/${newMessageRef.id}.png`)
-
-        // Firebase Cloud Storageにアップロード
-        await fileRef.putString(data, 'data_url')
-        const url = await fileRef.getDownloadURL()
-        window.console.log(url)
-
-        // Firestoreに保存しておく
-        await newMessageRef.set({
-          url,
-          message: this.text
-        })
-      })
-    }
+    RuneEditor
   }
 }
 </script>
 
 <style>
-/* @font-face {
-  font-family: 'Rune sans';
-  src: url('/RuneAssignMN_SansHumanicLike.otf')
-    format('opentype');
-  font-weight: normal;
-} */
-
 .container {
   margin: 0 auto;
   max-width: 960px;
