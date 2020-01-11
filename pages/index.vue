@@ -1,21 +1,22 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">ルーン文字ジェネレータ</h1>
+      <header>
+        <h1 class="title">ルーン文字ジェネレータ</h1>
 
-      <h2 class="subtitle">
-        入力をルーン文字に変換します。
-      </h2>
+        <h2 class="subtitle">
+          入力をルーン文字に変換します。
+        </h2>
+      </header>
 
       <div class="preview">
         <svg
           ref="svgPreview"
+          :viewBox="`0 0 600 ${boxHeight}`"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 600 300"
           width="600"
-          height="300"
         >
           <defs>
             <style type="text/css">
@@ -28,18 +29,18 @@
             </style>
           </defs>
           <rect
+            :height="boxHeight"
             x="0"
             y="0"
             width="600"
-            height="300"
             stroke="#333"
             style="fill: #fff;"
           />
           <rect
+            :height="boxHeight - 52"
             x="30"
             y="30"
             width="540"
-            height="240"
             stroke="#333"
             style="fill: #fff;"
           />
@@ -52,9 +53,9 @@
             letter-spacing="-0.002em"
           >
             <tspan
-              :dy="`${0.6 * (index + 1)}em`"
               v-for="(value, index) in texts"
               :key="index"
+              :dy="index === 0 ? '0.2em' : '1.2em'"
               x="0"
             >
               {{ value }}
@@ -63,11 +64,9 @@
         </svg>
       </div>
 
-      <div class="form">
-        <textarea v-model="text" />
-      </div>
+      <textarea v-model="text" class="input-text" rows="4" />
 
-      <button @click="create">ツイートする</button>
+      <button @click="create" class="tweet">ツイートする</button>
     </div>
   </div>
 </template>
@@ -117,13 +116,15 @@ const svg2imageData = (svgElement, successCallback, errorCallback) => {
 export default {
   data() {
     return {
-      text: ''
+      text: 'Hello world'
     }
   },
   computed: {
     texts() {
-      window.console.log(this.text.split(/\r\n|\n/))
       return this.text.split(/\r\n|\n/)
+    },
+    boxHeight() {
+      return 155 + (this.texts.length - 1) * 75
     }
   },
   async asyncData({ params }) {
@@ -165,6 +166,7 @@ export default {
 
 .container {
   margin: 0 auto;
+  max-width: 960px;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -172,19 +174,23 @@ export default {
   text-align: center;
 }
 
+header {
+  margin-bottom: 30px;
+}
+
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
-  font-weight: 300;
-  font-size: 100px;
+  font-weight: 600;
+  font-size: 35px;
   color: #35495e;
   letter-spacing: 1px;
 }
 
 .subtitle {
   font-weight: 300;
-  font-size: 42px;
+  font-size: 24px;
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
@@ -195,10 +201,28 @@ export default {
 } */
 .preview svg {
   width: 100%;
-  max-height: 200px;
 }
 
-.links {
-  padding-top: 15px;
+.input-text {
+  display: block;
+  width: 95%;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  font-size: 22px;
+}
+
+.tweet {
+  font-size: 28px;
+  padding: 0.5em 2em;
+  background-color: #1da1f2;
+  background-image: none;
+  border: 1px solid #1da1f2;
+  color: #fff;
+}
+
+.tweet:hover {
+  background-color: #1b95e0;
+  background-image: none;
+  border: 1px solid #1b95e0;
 }
 </style>
