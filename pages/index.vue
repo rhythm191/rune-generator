@@ -51,7 +51,14 @@
             font-family="Rune sans"
             letter-spacing="-0.002em"
           >
-            <tspan>{{ text }}</tspan>
+            <tspan
+              :dy="`${0.6 * (index + 1)}em`"
+              v-for="(value, index) in texts"
+              :key="index"
+              x="0"
+            >
+              {{ value }}
+            </tspan>
           </text>
         </svg>
       </div>
@@ -111,6 +118,12 @@ export default {
   data() {
     return {
       text: ''
+    }
+  },
+  computed: {
+    texts() {
+      window.console.log(this.text.split(/\r\n|\n/))
+      return this.text.split(/\r\n|\n/)
     }
   },
   async asyncData({ params }) {
