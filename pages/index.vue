@@ -10,58 +10,11 @@
       </header>
 
       <div class="preview">
-        <svg
-          ref="svgPreview"
-          :viewBox="`0 0 600 ${boxHeight}`"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="600"
-        >
-          <defs>
-            <style type="text/css">
-              @font-face {
-                font-family: 'Rune sans';
-                src: url('data:application/x-font-otf;charset=utf-8;base64,{{ runeFontBase64 }}')
-                  format('opentype');
-                font-weight: normal;
-              }
-            </style>
-          </defs>
-          <rect
-            :height="boxHeight"
-            x="0"
-            y="0"
-            width="600"
-            stroke="#333"
-            style="fill: #fff;"
-          />
-          <rect
-            :height="boxHeight - 52"
-            x="30"
-            y="30"
-            width="540"
-            stroke="#333"
-            style="fill: #fff;"
-          />
-
-          <text
-            transform="translate(80 100)"
-            fill="#333"
-            font-size="64"
-            font-family="Rune sans"
-            letter-spacing="-0.002em"
-          >
-            <tspan
-              v-for="(value, index) in texts"
-              :key="index"
-              :dy="index === 0 ? '0.2em' : '1.2em'"
-              x="0"
-            >
-              {{ value }}
-            </tspan>
-          </text>
-        </svg>
+        <SvgCanvas
+          ref="svgCanvas"
+          :text="text"
+          :runeFontBase64="runeFontBase64"
+        ></SvgCanvas>
       </div>
 
       <textarea v-model="text" class="input-text" rows="4" />
@@ -75,6 +28,8 @@
 // import axios from 'axios'
 
 import * as firebase from 'firebase/app'
+import SvgCanvas from '~/components/SvgCanvas'
+
 import 'firebase/firestore'
 import 'firebase/firebase-storage'
 
@@ -114,6 +69,9 @@ const svg2imageData = (svgElement, successCallback, errorCallback) => {
 }
 
 export default {
+  components: {
+    SvgCanvas
+  },
   data() {
     return {
       text: 'Hello world'
@@ -134,7 +92,7 @@ export default {
   },
   methods: {
     create() {
-      svg2imageData(this.$refs.svgPreview, async (data) => {
+      svg2imageData(this.$refs.svgCanvas.$refs.svg, async (data) => {
         const sRef = firebase.storage().ref()
         const newMessageRef = db.collection('messages').doc()
 
@@ -205,7 +163,8 @@ header {
 
 .input-text {
   display: block;
-  width: 95%;
+  padding: 5px;
+  width: 93%;
   margin: 20px auto;
   border: 1px solid #ccc;
   font-size: 22px;
