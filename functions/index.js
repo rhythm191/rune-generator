@@ -35,7 +35,7 @@ exports.f = functions.https.onRequest(async (req, res) => {
       <body>
       <script>
         // クローラーにはメタタグを解釈させて、人間は任意のページに飛ばす
-        // location.href = '/${id}';
+        location.href = '/${id}';
       </script>
       </body>
     </html>`)
