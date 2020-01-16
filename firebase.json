@@ -12,6 +12,9 @@
     ],
     "rewrites": [
       {
+        "source": "/f/**", "function": "f"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

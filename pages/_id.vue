@@ -45,7 +45,7 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: 'https://rune-generator.firebaseapp.com/icon.png'
+          content: this.imageUrl
         },
         {
           hid: 'twitter:card',
@@ -60,7 +60,7 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: 'https://rune-generator.firebaseapp.com/icon.png'
+          content: this.imageUrl
         },
         {
           hid: 'twitter:site',
@@ -76,10 +76,8 @@ export default {
       .collection('messages')
       .doc(params.id)
       .get()
-    window.console.log(message)
 
     const data = message.data()
-    window.console.log(data)
     return { id: params.id, text: data.message, imageUrl: data.url }
   },
   async validate({ params }) {
