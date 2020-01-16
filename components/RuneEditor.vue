@@ -79,7 +79,21 @@ export default {
           url,
           message: this.text
         })
+
+        window.location.href = this.tweetUrl(
+          newMessageRef.id,
+          this.text,
+          this.showPageUrl(newMessageRef.id)
+        )
       })
+    },
+
+    tweetUrl(id, message, url) {
+      return `https://twitter.com/intent/tweet?text=${message}&url=${url}&hashtags=ルーン文字ジェネレータ`
+    },
+
+    showPageUrl(id) {
+      return `${location.origin}/${id}`
     }
   }
 }
