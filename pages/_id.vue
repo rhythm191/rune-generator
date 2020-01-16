@@ -29,20 +29,23 @@ export default {
       meta: [
         {
           hid: 'og:title',
-          name: 'og:title',
           property: 'og:title',
           content: `${this.text}`
         },
         {
           hid: 'og:description',
-          name: 'og:description',
           property: 'og:description',
           content: `${this.text} by rune-generator`
         },
         {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `${window.origin}/${this.id}`
+        },
+        {
           hid: 'og:image',
           property: 'og:image',
-          content: this.imageUrl
+          content: 'https://rune-generator.firebaseapp.com/icon.png'
         },
         {
           hid: 'twitter:card',
@@ -57,7 +60,7 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.imageUrl
+          content: 'https://rune-generator.firebaseapp.com/icon.png'
         },
         {
           hid: 'twitter:site',
