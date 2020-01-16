@@ -77,7 +77,8 @@ export default {
         // Firestoreに保存しておく
         await newMessageRef.set({
           url,
-          message: this.text
+          message: this.text,
+          createdAt: new Date()
         })
 
         window.location.href = this.tweetUrl(
