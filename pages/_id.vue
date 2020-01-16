@@ -48,20 +48,22 @@ export default {
         {
           hid: 'twitter:card',
           name: 'twitter:card',
-          property: 'twitter:card',
           content: 'summary_large_image'
         },
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          property: 'twitter:title',
           content: `${this.text}`
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          property: 'twitter:image',
           content: this.imageUrl
+        },
+        {
+          hid: 'twitter:site',
+          name: 'twitter:site',
+          content: '@rhythm191'
         }
       ]
     }
