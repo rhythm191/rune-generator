@@ -94,7 +94,7 @@ export default {
     },
 
     showPageUrl(id) {
-      return `${location.origin}/${id}`
+      return `${location.origin}/f/${id}`
     }
   }
 }
