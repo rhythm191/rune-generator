@@ -1,6 +1,11 @@
 # rune-generator
 
-> Generate rule language sentence
+> Generate rule language image
+
+
+## App url
+
+https://rune-generator.firebaseapp.com
 
 ## Build Setup
 
@@ -34,3 +39,10 @@ $ firebase deploy --only firestore:indexes
 # storage indexes deploy
 $ firebase deploy --only storage:rules
 ```
+
+
+## License
+
+[MIT License](https://github.com/rhythm191/rune-generator/blob/master/LICENSE)
+
+Copyright (c) [@rhythm191](https://twitter.com/rhythm191)
