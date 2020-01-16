@@ -41,6 +41,16 @@ export default {
           hid: 'og:image',
           name: 'og:image',
           content: this.imageUrl
+        },
+        {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        },
+        {
+          hid: 'twitter:image',
+          name: 'twitter:image',
+          content: this.imageUrl
         }
       ]
     }
