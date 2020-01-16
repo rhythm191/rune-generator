@@ -8,7 +8,7 @@
       ></SvgCanvas>
     </div>
 
-    <textarea v-model="text" class="input-text" rows="4" />
+    <textarea v-model="text" class="input-text" rows="4" autofocus />
 
     <button @click="create" class="tweet">ツイートする</button>
   </div>
