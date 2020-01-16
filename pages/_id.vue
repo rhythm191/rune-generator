@@ -56,6 +56,14 @@ export default {
     const data = message.data()
     window.console.log(data)
     return { id: params.id, text: data.message, imageUrl: data.url }
+  },
+  async validate({ params }) {
+    const message = await db
+      .collection('messages')
+      .doc(params.id)
+      .get()
+
+    return message.exists
   }
 }
 </script>
