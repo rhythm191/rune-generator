@@ -29,27 +29,37 @@ export default {
       meta: [
         {
           hid: 'og:title',
-          name: 'og:title',
+          property: 'og:title',
           content: `${this.text}`
         },
         {
           hid: 'og:description',
-          name: 'og:description',
+          property: 'og:description',
           content: `${this.text} by rune-generator`
         },
         {
           hid: 'og:image',
-          name: 'og:image',
+          property: 'og:image',
           content: this.imageUrl
         },
         {
           hid: 'twitter:card',
-          name: 'twitter:card',
+          property: 'twitter:card',
           content: 'summary_large_image'
         },
         {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: `${this.text}`
+        },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: `${this.text} by rune-generator`
+        },
+        {
           hid: 'twitter:image',
-          name: 'twitter:image',
+          property: 'twitter:image',
           content: this.imageUrl
         }
       ]
