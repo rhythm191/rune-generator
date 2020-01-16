@@ -9,17 +9,53 @@
         </h2>
       </header>
 
-      <RuneEditor />
+      <RuneEditor :initText="text" />
     </div>
   </div>
 </template>
 
 <script>
 import RuneEditor from '~/components/RuneEditor'
+import { db } from '~/plugins/firebase'
 
 export default {
   components: {
     RuneEditor
+  },
+  head() {
+    return {
+      title: `${this.text} | rune-generator`,
+      description: `"${this.text}" by rune-generator`,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: `${this.text}`
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: `${this.text} by rune-generator`
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.imageUrl
+        }
+      ]
+    }
+  },
+
+  async asyncData({ params }) {
+    const message = await db
+      .collection('messages')
+      .doc(params.id)
+      .get()
+    window.console.log(message)
+
+    const data = message.data()
+    window.console.log(data)
+    return { id: params.id, text: data.message, imageUrl: data.url }
   }
 }
 </script>

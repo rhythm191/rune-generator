@@ -45,9 +45,15 @@ export default {
   components: {
     SvgCanvas
   },
+  props: {
+    initText: {
+      type: String,
+      default: 'Hello world'
+    }
+  },
   data() {
     return {
-      text: 'Hello world',
+      text: this.initText,
       runeFontBase64: ''
     }
   },
