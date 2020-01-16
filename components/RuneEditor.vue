@@ -23,13 +23,13 @@ const svg2imageData = (svgElement, successCallback, errorCallback) => {
   const svgHeight = svgElement.height.baseVal.value
 
   const canvas = document.createElement('canvas')
-  canvas.width = 1200
-  canvas.height = svgHeight < 630 ? 630 : svgHeight
+  canvas.width = 900
+  canvas.height = svgHeight
   const ctx = canvas.getContext('2d')
 
   const image = new Image()
   image.onload = () => {
-    ctx.drawImage(image, 0, 0, 1200, canvas.height)
+    ctx.drawImage(image, 0, 0, 900, canvas.height)
     successCallback(canvas.toDataURL())
   }
   image.onerror = (e) => {
@@ -117,6 +117,7 @@ export default {
   background-image: none;
   border: 1px solid #1da1f2;
   color: #fff;
+  cursor: pointer;
 }
 
 .tweet:hover {
