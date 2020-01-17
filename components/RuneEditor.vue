@@ -8,7 +8,7 @@
       ></SvgCanvas>
     </div>
 
-    <textarea v-model="text" class="input-text" rows="4" autofocus />
+    <textarea v-model="text" class="input-text" rows="5" autofocus />
 
     <button @click="create" class="tweet">ツイートする</button>
   </div>
@@ -20,11 +20,9 @@ import { db, storage } from '~/plugins/firebase'
 
 // svgをpngに変換
 const svg2imageData = (svgElement, successCallback, errorCallback) => {
-  const svgHeight = svgElement.height.baseVal.value
-
   const canvas = document.createElement('canvas')
   canvas.width = 900
-  canvas.height = svgHeight
+  canvas.height = 470
   const ctx = canvas.getContext('2d')
 
   const image = new Image()

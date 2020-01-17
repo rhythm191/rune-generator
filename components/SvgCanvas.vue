@@ -1,7 +1,7 @@
 <template>
   <svg
     ref="svg"
-    :viewBox="`0 0 900 ${boxHeight}`"
+    :viewBox="`0 0 900 470`"
     class="svg-canvas"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@
       </style>
     </defs>
     <rect
-      :height="boxHeight"
+      :height="470"
       x="0"
       y="0"
       width="900"
@@ -27,7 +27,7 @@
       style="fill: #fff;"
     />
     <rect
-      :height="boxHeight - 52"
+      :height="470 - 52"
       x="30"
       y="30"
       width="840"
